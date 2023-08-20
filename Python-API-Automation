@@ -1,0 +1,18 @@
+import requests
+
+url = input("Enter the URL you want to submit to VirusTotal: ")
+api_key = "THE_API_KEY"
+
+# Submit URL for scan
+submit_url = "https://www.virustotal.com/api/v3/urls"
+submit_headers = {  "accept": "application/json",
+            'x-apikey': api_key,
+            "content-type": "application/x-www-form-urlencoded"}
+submit_data = {'url': url}
+submit_response = requests.post(submit_url, data=submit_data, headers=submit_headers )
+
+# Extract scan ID from response
+scan_id = submit_response.json()["data"]["id"].split("-")[1]
+
+# Display scan ID
+print(scan_id)
